@@ -1,0 +1,29 @@
+unit uRelatorioVendasDiariasModel;
+
+interface
+
+uses
+  uEnumerado, FireDAC.Comp.Client;
+
+type
+  TRelatorioVendasDiariasModel = class
+    private
+      Fid : string;
+      Fnumpedi : string;
+      Fdataemissao: TDate;
+      Fcodcliente: string;
+      Fnome: string;
+      Fidproduto: string;
+      Fcodigobar: string;
+      Fdescricao: string;
+      Fquantidade: Double;
+      Fvalorunitario: Double;
+      Fvalortotal: Double;
+    public
+
+
+  end;
+
+implementation
+
+end.

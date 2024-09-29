@@ -1,0 +1,52 @@
+unit uRelatorioVendasDiariasDAO;
+
+interface
+
+uses
+  FireDAC.Comp.Client, uConexao, uClienteModel, System.SysUtils, uSistemaControl;
+
+type TRelatorioVendasDiariasDAO = class
+  private
+    FConexao: TConexao;
+  public
+    constructor Create;
+
+    function Obter(DataIni, DataFin: string): TFDQuery;
+end;
+
+implementation
+
+{ TRelatorioVendasDiariasDAO }
+
+constructor TRelatorioVendasDiariasDAO.Create;
+begin
+  FConexao := TSistemaControl.GetInstance().Conexao;
+end;
+
+function TRelatorioVendasDiariasDAO.Obter(DataIni, DataFin: string): TFDQuery;
+var
+  vQry: TFDQuery;
+begin
+  vQry := FConexao.CriarQuery();
+  vQry.close;
+  vQry.SQL.Clear;
+  vQry.SQL.Add('select lpad(p.id,6,''0'') as id,                              '+
+               '        lpad(p.numpedi,6,''0'') as numpedi,                   '+
+               '        p.data_emissao,                                       '+
+               '        p.cod_cliente,                                        '+
+               '        c.nome,                                               '+
+               '        pp.id_produto,                                        '+
+               '        lpad(pr.codigo_bar,13,''0'') as codigo_bar,           '+
+               '        pr.descricao,                                         '+
+               '        pp.quantidade,                                        '+
+               '        pp.valor_unitario,                                    '+
+               '        pp.valor_total as valor_total_prod                    '+
+               ' FROM PEDIDO p                                                '+
+               '   INNER JOIN CLIENTES c ON c.codigo = p.cod_cliente          '+
+               '   INNER JOIN PEDIDO_PRODUTOS pp ON pp.numpedido = p.numpedi  '+
+               '   INNER JOIN PRODUTOS pr ON pr.id = pp.id_produto            ');
+
+  Result := vQry;
+end;
+
+end.

@@ -1,0 +1,20 @@
+unit uRelatorioVendasDiariasControl;
+
+interface
+
+uses
+  uRelatorioVendasDiariasModel, System.SysUtils, FireDAC.Comp.Client;
+
+type
+  TRelatorioVendasDiariasControl = class
+    private
+
+    public
+      constructor Create;
+      destructor Destroy; override;
+
+  end;
+
+implementation
+
+end.
